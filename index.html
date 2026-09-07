@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Presenze</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <div class="brand">DUSSMANN SERVICE</div>
+        <div class="subtitle">Presenze in servizio</div>
+      </div>
+      <button id="logoutBtn" class="ghost hidden" type="button">Esci</button>
+    </header>
+
+    <main class="shell">
+      <section id="loginView" class="card narrow">
+        <h1>Accedi</h1>
+        <p class="muted">Inserisci codice lavoratore e PIN personale.</p>
+        <label>Codice lavoratore
+          <input id="employeeCode" autocomplete="username" inputmode="text" placeholder="es. LEC001" />
+        </label>
+        <label>PIN
+          <input id="pin" type="password" autocomplete="current-password" inputmode="numeric" maxlength="8" placeholder="••••" />
+        </label>
+        <button id="loginBtn" class="primary" type="button">Accedi</button>
+        <div id="loginError" class="error hidden"></div>
+      </section>
+
+      <section id="workerView" class="hidden">
+        <div class="card hero">
+          <div>
+            <div class="eyebrow" id="todayLabel"></div>
+            <h1 id="welcomeTitle">Presenza di oggi</h1>
+            <div class="muted" id="workerMeta"></div>
+          </div>
+          <div id="statusBadge" class="badge">Da compilare</div>
+        </div>
+
+        <div class="grid two">
+          <section class="card">
+            <h2>1ª fascia</h2>
+            <div class="time-grid">
+              <label>Entrata <input id="in1" type="time" /></label>
+              <label>Uscita <input id="out1" type="time" /></label>
+            </div>
+            <button class="quick" type="button" data-fill="now-in1">Imposta entrata adesso</button>
+            <button class="quick" type="button" data-fill="now-out1">Imposta uscita adesso</button>
+          </section>
+
+          <section class="card">
+            <div class="row-between">
+              <h2>2ª fascia</h2>
+              <span class="muted small">facoltativa</span>
+            </div>
+            <div class="time-grid">
+              <label>Entrata <input id="in2" type="time" /></label>
+              <label>Uscita <input id="out2" type="time" /></label>
+            </div>
+          </section>
+        </div>
+
+        <section class="card">
+          <div class="row-between total-row">
+            <strong>Totale di oggi</strong>
+            <strong id="dailyTotal">0:00</strong>
+          </div>
+          <label>Note
+            <textarea id="notes" rows="3" placeholder="Eventuali note sul servizio"></textarea>
+          </label>
+          <label class="check">
+            <input id="confirmCheck" type="checkbox" />
+            <span>Confermo che gli orari inseriti corrispondono alla mia effettiva presenza in servizio.</span>
+          </label>
+          <button id="saveBtn" class="primary big" type="button">Conferma presenza</button>
+          <div id="saveMessage" class="message hidden"></div>
+        </section>
+
+        <section class="card">
+          <div class="row-between">
+            <h2>Questo mese</h2>
+            <button id="refreshMonthBtn" class="ghost" type="button">Aggiorna</button>
+          </div>
+          <div id="monthList" class="month-list"></div>
+        </section>
+      </section>
+
+      <section id="adminView" class="hidden">
+        <div class="card hero">
+          <div>
+            <div class="eyebrow">AREA RESPONSABILE</div>
+            <h1>Controllo presenze</h1>
+            <div id="adminMeta" class="muted"></div>
+          </div>
+        </div>
+        <section class="card">
+          <div class="filters">
+            <label>Data <input id="adminDate" type="date" /></label>
+            <label>CDC / Appalto <select id="adminCdc"><option value="">Tutti</option></select></label>
+            <button id="loadAdminBtn" class="primary" type="button">Carica</button>
+          </div>
+          <div id="adminSummary" class="summary"></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Lavoratore</th><th>CDC</th><th>Orari</th><th>Totale</th><th>Stato</th><th></th></tr></thead>
+              <tbody id="adminRows"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="card">
+          <h2>PDF mensile</h2>
+          <div class="filters">
+            <label>Mese <input id="pdfMonth" type="month" /></label>
+            <label>Lavoratore <select id="pdfWorker"></select></label>
+            <button id="pdfBtn" class="primary" type="button">Genera PDF</button>
+          </div>
+          <div id="pdfMessage" class="message hidden"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
